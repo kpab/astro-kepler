@@ -1,0 +1,27 @@
+---
+// 軌道マーク＋ワードマーク。size は nav 用(30px)と footer 用(28px)の2種
+interface Props {
+	size?: 'md' | 'sm';
+	href?: string;
+}
+const { size = 'md', href = '#top' } = Astro.props;
+const mark = size === 'md' ? 'size-[30px] rounded-[9px]' : 'size-7 rounded-lg';
+const ring = size === 'md' ? 'w-[30px] h-3.5' : 'w-7 h-[13px]';
+const dot = size === 'md' ? 'size-2' : 'size-[7px]';
+const text = size === 'md' ? 'text-[21px]' : 'text-xl';
+---
+
+<a
+	href={href}
+	class:list={[
+		'flex items-center gap-2.5 font-display font-bold tracking-[-0.02em] text-cloud',
+		text,
+	]}
+>
+	<span class:list={['relative inline-flex items-center justify-center bg-orange', mark]}>
+		<span class:list={['absolute rounded-full border-2 border-cloud -rotate-[30deg]', ring]}
+		></span>
+		<span class:list={['rounded-full bg-cloud', dot]}></span>
+	</span>
+	Kepler
+</a>
