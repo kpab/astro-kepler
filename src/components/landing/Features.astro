@@ -1,0 +1,95 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+// アイコンは CSS シェイプ（プロトタイプ準拠）。chip: orange-soft / sky の交互
+const features = [
+	{
+		title: 'Blazing fast',
+		body: 'Zero-JS by default. Islands only where you need them, so pages load instantly.',
+		chip: 'bg-orange-soft',
+		icon: 'triangle',
+	},
+	{
+		title: 'SEO baked in',
+		body: 'Meta tags, sitemaps, RSS, and OG images generated automatically per page.',
+		chip: 'bg-sky',
+		icon: 'circle',
+	},
+	{
+		title: 'MDX content',
+		body: 'Write posts in Markdown or MDX with typed frontmatter and instant previews.',
+		chip: 'bg-orange-soft',
+		icon: 'diamond',
+	},
+	{
+		title: 'Dark mode',
+		body: 'A polished light/dark theme with a flicker-free toggle that respects the OS.',
+		chip: 'bg-sky',
+		icon: 'ring',
+	},
+	{
+		title: 'Fully typed',
+		body: 'TypeScript end to end with content collections, so refactors never break links.',
+		chip: 'bg-orange-soft',
+		icon: 'sparkle',
+	},
+	{
+		title: 'Deploy anywhere',
+		body: 'One command to Netlify, Vercel, or Cloudflare. Static or SSR — your call.',
+		chip: 'bg-sky',
+		icon: 'pill',
+	},
+];
+---
+
+<section
+	id="features"
+	class="border-y-4 border-ink bg-linear-160 from-orange-bright from-0% via-orange via-55% to-orange-deep"
+>
+	<div class="mx-auto max-w-[1200px] px-8 pt-18 pb-21">
+		<SectionHeader
+			eyebrow="Features"
+			title="Everything ships in the box"
+			sub="No plugins to chase, no config rabbit holes. Kepler comes wired and ready."
+			on="orange"
+		/>
+		<div class="grid gap-6 md:grid-cols-3">
+			{
+				features.map((f, i) => (
+					<div
+						class:list={[
+							'rounded-card border-2 border-ink bg-cloud p-7 shadow-pop transition-[transform,box-shadow] duration-180 hover:translate-y-[-4px] hover:rotate-0 hover:shadow-pop-lg',
+							i % 2 === 0 ? '-rotate-1' : 'rotate-1',
+						]}
+					>
+						<span
+							class:list={[
+								'mb-4.5 flex size-13 items-center justify-center rounded-chip',
+								f.chip,
+							]}
+						>
+							{f.icon === 'triangle' && (
+								<span class="size-0 border-x-11 border-b-[18px] border-x-transparent border-b-orange" />
+							)}
+							{f.icon === 'circle' && <span class="size-5 rounded-full bg-navy" />}
+							{f.icon === 'diamond' && (
+								<span class="size-5 rotate-45 rounded-[3px] bg-orange" />
+							)}
+							{f.icon === 'ring' && (
+								<span class="size-[22px] rounded-full border-4 border-navy" />
+							)}
+							{f.icon === 'sparkle' && (
+								<span class="text-[26px] leading-none text-orange">✦</span>
+							)}
+							{f.icon === 'pill' && (
+								<span class="h-3.5 w-[22px] rounded-md border-[3px] border-navy" />
+							)}
+						</span>
+						<h3 class="text-[21px] font-semibold text-ink">{f.title}</h3>
+						<p class="mt-2 text-[15px] leading-normal text-slate-600">{f.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

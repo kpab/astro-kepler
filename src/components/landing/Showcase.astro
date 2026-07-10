@@ -1,0 +1,53 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+const tiles = [
+	{
+		label: 'preview — blog',
+		title: 'Blog',
+		body: 'Tags, pagination, reading time, and an RSS feed out of the box.',
+	},
+	{
+		label: 'preview — portfolio',
+		title: 'Portfolio',
+		body: 'A filterable project grid and case-study layout that shows off your work.',
+	},
+	{
+		label: 'preview — landing',
+		title: 'Landing',
+		body: 'Conversion-ready sections, a pricing table, and forms already wired up.',
+	},
+];
+---
+
+<section
+	id="showcase"
+	class="relative overflow-hidden bg-linear-160 from-navy to-navy-deep text-cloud"
+>
+	<span class="absolute top-10 right-[8%] text-[34px] text-orange">✦</span>
+	<span class="absolute bottom-15 left-[5%] size-5 rotate-[20deg] rounded-md bg-orange"></span>
+	<div class="mx-auto max-w-[1200px] px-8 py-20">
+		<SectionHeader
+			eyebrow="Built for anything"
+			title="Three starts, one codebase"
+			sub="Pick a preset and go. Every layout shares the same components, so you can mix pages freely."
+			on="navy"
+			class="max-w-[620px] mb-13"
+		/>
+		<div class="grid gap-6 md:grid-cols-3">
+			{
+				tiles.map((tile) => (
+					<div class="rounded-tile border border-white/14 bg-white/6 p-4.5">
+						<div class="flex aspect-4/3 items-center justify-center overflow-hidden rounded-xl bg-[repeating-linear-gradient(45deg,#e2e8f0,#e2e8f0_10px,#eef2f7_10px,#eef2f7_20px)]">
+							<span class="rounded-md bg-paper px-2.5 py-1 font-mono text-xs text-slate-500">
+								{tile.label}
+							</span>
+						</div>
+						<h3 class="mt-4 font-display text-xl font-semibold text-cloud">{tile.title}</h3>
+						<p class="mt-1.5 text-sm leading-normal text-sky-mist">{tile.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

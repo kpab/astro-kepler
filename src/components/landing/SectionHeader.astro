@@ -1,0 +1,40 @@
+---
+// セクション見出し（eyebrow + h2 + サブテキスト）。配色は載る地の色で切り替える
+interface Props {
+	eyebrow: string;
+	title: string;
+	sub?: string;
+	on: 'orange' | 'navy';
+	class?: string;
+}
+const { eyebrow, title, sub, on, class: className = 'max-w-[640px] mb-12' } = Astro.props;
+---
+
+<div class:list={['mx-auto text-center', className]}>
+	<span
+		class:list={[
+			'text-[13px] font-bold tracking-[0.12em] uppercase',
+			on === 'orange' ? 'text-cloud' : 'text-orange-glow',
+		]}>{eyebrow}</span
+	>
+	<h2
+		class:list={[
+			'mt-3 text-[44px] leading-tight font-bold tracking-[-0.02em]',
+			on === 'orange' ? 'text-ink' : 'text-cloud',
+		]}
+	>
+		{title}
+	</h2>
+	{
+		sub && (
+			<p
+				class:list={[
+					'mt-4 text-lg',
+					on === 'orange' ? 'text-[#3a1503]' : 'text-sky-mist',
+				]}
+			>
+				{sub}
+			</p>
+		)
+	}
+</div>

@@ -1,0 +1,74 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+const quotes = [
+	{
+		quote:
+			'"Launched my portfolio in a single evening. It scored 100 on Lighthouse without me touching a thing."',
+		initials: 'JK',
+		avatar: 'bg-navy',
+		name: 'Jenna Kim',
+		role: 'Product Designer',
+		tilt: '-rotate-[1.2deg]',
+	},
+	{
+		quote:
+			'"We rebuilt our whole marketing site on Kepler. The team preset saved us weeks of setup."',
+		initials: 'MA',
+		avatar: 'bg-orange',
+		name: 'Marco Alvarez',
+		role: 'Founder, Lumen',
+		tilt: 'rotate-1',
+	},
+	{
+		quote:
+			'"The MDX setup is exactly what I wanted. I write, I push, it\'s live. No fighting the framework."',
+		initials: 'RS',
+		avatar: 'bg-navy-deep',
+		name: 'Riya Shah',
+		role: 'Indie Developer',
+		tilt: '-rotate-1',
+	},
+];
+---
+
+<section class="relative overflow-hidden bg-linear-160 from-navy to-navy-deep text-cloud">
+	<span class="absolute top-12.5 left-[6%] text-[28px] text-orange">✦</span>
+	<span class="absolute right-[7%] bottom-10 size-5 rotate-[18deg] rounded-md bg-orange"></span>
+	<div class="mx-auto max-w-[1200px] px-8 py-20">
+		<SectionHeader
+			eyebrow="Loved by builders"
+			title="Don't take our word for it"
+			on="navy"
+			class="max-w-[620px] mb-12"
+		/>
+		<div class="grid gap-6 md:grid-cols-3">
+			{
+				quotes.map((q) => (
+					<div
+						class:list={[
+							'rounded-card border-2 border-ink bg-cloud p-7 shadow-pop-orange transition-transform duration-180 hover:rotate-0',
+							q.tilt,
+						]}
+					>
+						<p class="text-base leading-[1.55] text-slate-800">{q.quote}</p>
+						<div class="mt-5.5 flex items-center gap-3">
+							<span
+								class:list={[
+									'flex size-[42px] items-center justify-center rounded-full font-bold text-cloud',
+									q.avatar,
+								]}
+							>
+								{q.initials}
+							</span>
+							<div>
+								<div class="text-[15px] font-bold text-ink">{q.name}</div>
+								<div class="text-[13px] text-slate-500">{q.role}</div>
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
