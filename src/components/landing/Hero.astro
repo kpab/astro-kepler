@@ -1,0 +1,136 @@
+---
+// LP Hero — docs/design/kepler-landing.html の HERO セクションに忠実に
+const avatars = [
+	{ initials: 'JK', class: 'bg-orange text-cloud' },
+	{ initials: 'MA', class: 'bg-cloud text-navy -ml-2.5' },
+	{ initials: 'RS', class: 'bg-orange-bright text-cloud -ml-2.5' },
+];
+---
+
+<section class="bg-linear-155 from-navy to-navy-deep text-cloud">
+	<header
+		id="top"
+		class="relative mx-auto grid max-w-[1200px] items-center gap-10 px-8 pt-18 pb-10 lg:grid-cols-[1.05fr_.95fr]"
+	>
+		<!-- color glows -->
+		<span
+			class="pointer-events-none absolute -top-[90px] -right-[70px] z-0 size-[660px] bg-radial from-orange/55 to-transparent to-62%"
+		></span>
+		<span
+			class="pointer-events-none absolute -bottom-40 -left-[100px] z-0 size-[560px] bg-radial from-[rgb(96_165_250/0.45)] to-transparent to-64%"
+		></span>
+		<!-- floating stickers -->
+		<span
+			class="absolute top-14 left-[44%] z-1 size-[22px] rounded-md bg-orange [--r:18deg] animate-drift"
+		></span>
+		<span
+			class="absolute top-50 left-1.5 z-1 size-4 rounded-full bg-cloud [--r:0deg] animate-drift-alt"
+		></span>
+
+		<div class="relative z-2">
+			<span
+				class="inline-flex items-center gap-2 rounded-full bg-orange px-3.5 py-[7px] text-[13px] font-bold tracking-[0.01em] text-cloud"
+				>✦ Astro 7 &nbsp;·&nbsp; 100 Lighthouse</span
+			>
+			<h1
+				class="mt-5 text-5xl leading-[0.98] font-bold tracking-[-0.03em] text-cloud md:text-[70px]"
+			>
+				One template.<br />Every idea in <span class="relative whitespace-nowrap text-orange-bright"
+					>orbit<svg
+						viewBox="0 0 220 20"
+						width="100%"
+						height="16"
+						class="absolute -bottom-2 left-0"
+						preserveAspectRatio="none"
+						aria-hidden="true"
+						><path
+							d="M4 13 C60 4 160 4 216 11"
+							stroke="var(--color-orange)"
+							stroke-width="5"
+							fill="none"
+							stroke-linecap="round"></path></svg
+					></span
+				>.
+			</h1>
+			<p class="mt-6.5 max-w-[460px] text-[19px] leading-[1.55] text-sky">
+				The versatile Astro starter for blogs, portfolios, and landing pages. Ship a fast,
+				beautiful site in an afternoon — no build headaches, no bloat.
+			</p>
+			<div class="mt-8 flex flex-wrap gap-3.5">
+				<a
+					href="#pricing"
+					class="rounded-full bg-orange px-7 py-[15px] font-bold text-cloud shadow-pop-white transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--color-cloud)]"
+					>Start building →</a
+				>
+				<a
+					href="#showcase"
+					class="rounded-full border-2 border-cloud bg-cloud px-7 py-[15px] font-bold text-navy transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+					>See it live</a
+				>
+			</div>
+			<div class="mt-8.5 flex items-center gap-3.5 text-sm font-medium text-sky-mist">
+				<div class="flex">
+					{
+						avatars.map((a) => (
+							<span
+								class:list={[
+									'flex size-8.5 items-center justify-center rounded-full border-2 border-navy text-[13px] font-bold',
+									a.class,
+								]}
+							>
+								{a.initials}
+							</span>
+						))
+					}
+				</div>
+				<span>Loved by <strong class="text-cloud">12,000+</strong> builders</span>
+			</div>
+		</div>
+
+		<!-- ORBIT GRAPHIC -->
+		<div class="relative z-2 flex aspect-square items-center justify-center">
+			<div
+				class="absolute h-[88%] w-[88%] rounded-full border-2 border-dashed border-white/40 animate-orbit-spin"
+			>
+				<span
+					class="absolute -top-[9px] left-1/2 -ml-[9px] size-[18px] rounded-full bg-orange shadow-[0_0_0_4px_rgb(249_115_22/0.3)]"
+				></span>
+			</div>
+			<div
+				class="absolute h-[62%] w-[62%] rounded-full border-2 border-white/30 animate-orbit-spin-rev"
+			>
+				<span
+					class="absolute -bottom-[7px] left-1/2 -ml-[7px] size-3.5 rounded bg-cloud"
+				></span>
+			</div>
+			<div
+				class="relative flex h-[40%] w-[40%] items-center justify-center rounded-[26px] bg-orange shadow-pop-lg"
+			>
+				<span
+					class="absolute h-5 w-11 -rotate-[28deg] rounded-full border-[3px] border-cloud"
+				></span>
+				<span class="size-4 rounded-full bg-cloud"></span>
+			</div>
+			<span class="absolute top-[8%] right-[10%] text-[26px] text-orange">✦</span>
+			<span class="absolute bottom-[10%] left-[6%] text-xl text-cloud">✦</span>
+		</div>
+	</header>
+
+	<!-- LOGO STRIP -->
+	<div class="mx-auto max-w-[1200px] px-8 pt-2 pb-16">
+		<p
+			class="mb-5.5 text-center text-[13px] font-bold tracking-[0.14em] text-white/60 uppercase"
+		>
+			Powering sites for teams at
+		</p>
+		<div class="flex flex-wrap items-center justify-center gap-11">
+			{
+				['Northwind', 'Lumen', 'Craftly', 'Peakform', 'Studio 9'].map((name) => (
+					<span class="font-display text-[22px] font-bold whitespace-nowrap text-white/80">
+						{name}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</section>

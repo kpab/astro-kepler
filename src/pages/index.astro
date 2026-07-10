@@ -1,41 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/landing/Hero.astro';
 ---
 
 <BaseLayout>
-	<!-- 暫定: デザイントークンの動作確認コンテンツ。Hero 以降のセクション実装で置き換える -->
-	<main id="top" class="mx-auto max-w-3xl px-8 py-16">
-		<h1 class="text-5xl font-bold tracking-tight text-navy">
-			Kepler <span class="text-orange">tokens</span>
-		</h1>
-		<p class="mt-4 text-[17px] text-ink">
-			Body text in Manrope on paper background. Headings in Space Grotesk.
-		</p>
-		<div class="mt-10 grid grid-cols-3 gap-6">
-			<div class="rounded-card border-2 border-ink bg-cloud p-6 shadow-pop -rotate-1 transition-transform hover:rotate-0">
-				<h3 class="text-[21px] font-semibold text-ink">Pop card</h3>
-				<p class="mt-2 text-[15px] text-ink/70">Hard offset shadow, tilted.</p>
-			</div>
-			<div class="rounded-card border-2 border-ink bg-navy p-6 text-cloud shadow-pop-orange rotate-1 transition-transform hover:rotate-0">
-				<h3 class="text-[21px] font-semibold">Navy card</h3>
-				<p class="mt-2 text-[15px] text-sky-mist">Orange offset shadow.</p>
-			</div>
-			<div class="flex items-center justify-center">
-				<div class="relative flex size-32 items-center justify-center">
-					<div class="absolute inset-0 rounded-full border-2 border-dashed border-navy/40 animate-orbit-spin">
-						<span class="absolute -top-1.5 left-1/2 -ml-1.5 size-3 rounded-full bg-orange"></span>
-					</div>
-					<span class="flex size-12 items-center justify-center rounded-chip bg-orange shadow-pop-sm">
-						<span class="size-3 rounded-full bg-cloud"></span>
-					</span>
-				</div>
-			</div>
-		</div>
-		<a
-			href="#"
-			class="mt-10 inline-block rounded-full bg-orange px-7 py-3.5 font-bold text-cloud shadow-pop transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-			>Pill button →</a
-		>
-		<div class="h-[120vh]"></div>
-	</main>
+	<Hero />
+	<!-- 以降のセクション: Features / Showcase / Pricing / Testimonials / FAQ / Final CTA -->
 </BaseLayout>
