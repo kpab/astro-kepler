@@ -1,0 +1,192 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+const tiers = [
+	{
+		name: 'Solo',
+		sub: 'For one personal site.',
+		monthly: 4,
+		yearly: 39,
+		cta: 'Choose Solo',
+		featured: false,
+		features: ['1 project license', 'All three presets', '1 year of updates', 'Community support'],
+	},
+	{
+		name: 'Pro',
+		sub: 'For freelancers & makers.',
+		monthly: 8,
+		yearly: 79,
+		cta: 'Choose Pro',
+		featured: true,
+		features: [
+			'Unlimited projects',
+			'Lifetime updates',
+			'Premium blocks library',
+			'Priority email support',
+		],
+	},
+	{
+		name: 'Team',
+		sub: 'For studios & agencies.',
+		monthly: 20,
+		yearly: 199,
+		cta: 'Choose Team',
+		featured: false,
+		features: [
+			'Everything in Pro',
+			'5 seats included',
+			'Shared component library',
+			'Onboarding call',
+		],
+	},
+];
+---
+
+<section
+	id="pricing"
+	class="border-y-4 border-ink bg-linear-160 from-orange-bright from-0% via-orange via-60% to-orange-deep"
+>
+	<div class="mx-auto max-w-[1200px] px-8 py-20">
+		<SectionHeader
+			eyebrow="Pricing"
+			title="One purchase, yours forever"
+			on="orange"
+			class="max-w-[620px] mb-5"
+		/>
+		<div class="mb-11 flex justify-center">
+			<div
+				id="billing-toggle"
+				class="inline-flex gap-1 rounded-full border-2 border-ink bg-cloud p-[5px]"
+			>
+				<button
+					type="button"
+					data-period="monthly"
+					aria-pressed="true"
+					class="cursor-pointer rounded-full bg-navy px-5 py-[9px] text-sm font-bold text-cloud transition-colors duration-150"
+					>Monthly</button
+				>
+				<button
+					type="button"
+					data-period="yearly"
+					aria-pressed="false"
+					class="cursor-pointer rounded-full bg-transparent px-5 py-[9px] text-sm font-bold text-slate-600 transition-colors duration-150"
+					>Yearly&nbsp;<span class="text-orange">-20%</span></button
+				>
+			</div>
+		</div>
+		<div class="grid items-start gap-6 md:grid-cols-3">
+			{
+				tiers.map((tier) => (
+					<div
+						class:list={[
+							tier.featured
+								? 'relative scale-[1.03] rounded-[22px] border-2 border-ink bg-navy p-8.5 text-cloud shadow-pop-lg'
+								: 'rounded-[22px] border-2 border-ink bg-cloud p-8 shadow-pop',
+						]}
+					>
+						{tier.featured && (
+							<span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full border-2 border-cloud bg-orange px-3.5 py-1.5 text-xs font-bold tracking-[0.05em] whitespace-nowrap text-cloud">
+								MOST POPULAR
+							</span>
+						)}
+						<h3
+							class:list={[
+								'text-xl font-semibold',
+								tier.featured ? 'text-cloud' : 'text-navy',
+							]}
+						>
+							{tier.name}
+						</h3>
+						<p
+							class:list={[
+								'mt-1.5 text-sm',
+								tier.featured ? 'text-sky-mist' : 'text-slate-500',
+							]}
+						>
+							{tier.sub}
+						</p>
+						<div class="mt-5.5 flex items-baseline gap-1">
+							<span
+								class:list={[
+									'font-display text-[46px] font-bold',
+									tier.featured ? 'text-cloud' : 'text-ink',
+								]}
+							>
+								$<span data-price-monthly={tier.monthly} data-price-yearly={tier.yearly}>
+									{tier.monthly}
+								</span>
+							</span>
+							<span
+								class:list={[
+									'text-[15px]',
+									tier.featured ? 'text-sky-mist' : 'text-slate-500',
+								]}
+							>
+								/<span data-period-label>mo</span>
+							</span>
+						</div>
+						<a
+							href="#"
+							class:list={[
+								'mt-6 block rounded-full py-[13px] text-center text-[15px] font-bold transition-[background-color,transform] duration-150',
+								tier.featured
+									? 'bg-orange text-cloud hover:-translate-y-0.5'
+									: 'border-2 border-navy bg-cloud text-navy hover:bg-sky',
+							]}
+						>
+							{tier.cta}
+						</a>
+						<ul
+							class:list={[
+								'mt-6 flex flex-col gap-3 text-[15px]',
+								tier.featured ? 'text-[#e0e7ff]' : 'text-slate-700',
+							]}
+						>
+							{tier.features.map((feature) => (
+								<li class="flex gap-2.5">
+									<span
+										class:list={[
+											'font-extrabold',
+											tier.featured ? 'text-orange-glow' : 'text-orange',
+										]}
+									>
+										✓
+									</span>
+									{feature}
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	// 料金トグル: Monthly/Yearly で価格と /mo・/yr を切り替える
+	const toggle = document.getElementById('billing-toggle');
+	const buttons = toggle?.querySelectorAll<HTMLButtonElement>('button[data-period]') ?? [];
+	const activeClasses = ['bg-navy', 'text-cloud'];
+	const inactiveClasses = ['bg-transparent', 'text-slate-600'];
+
+	const setPeriod = (period: string) => {
+		const yearly = period === 'yearly';
+		document.querySelectorAll<HTMLElement>('[data-price-monthly]').forEach((el) => {
+			el.textContent = yearly ? el.dataset.priceYearly! : el.dataset.priceMonthly!;
+		});
+		document.querySelectorAll<HTMLElement>('[data-period-label]').forEach((el) => {
+			el.textContent = yearly ? 'yr' : 'mo';
+		});
+		buttons.forEach((btn) => {
+			const active = btn.dataset.period === period;
+			btn.classList.remove(...(active ? inactiveClasses : activeClasses));
+			btn.classList.add(...(active ? activeClasses : inactiveClasses));
+			btn.setAttribute('aria-pressed', String(active));
+		});
+	};
+
+	buttons.forEach((btn) => {
+		btn.addEventListener('click', () => setPeriod(btn.dataset.period!));
+	});
+</script>
