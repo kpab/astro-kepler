@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm astro:*)",
+      "Bash(wrangler dev:*)"
+    ]
+  }
+}
