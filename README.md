@@ -4,7 +4,13 @@ A versatile [Astro 7](https://astro.build) theme for **blogs, portfolios, and la
 all driven by one cohesive design system. Navy × orange, playful-pop styling with hard
 offset shadows and an orbit motif.
 
+[![CI](https://github.com/kpab/astro-kepler/actions/workflows/ci.yml/badge.svg)](https://github.com/kpab/astro-kepler/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-f97316.svg)](./LICENSE)
+[![Built with Astro](https://img.shields.io/badge/Astro-7-1e3a8a.svg?logo=astro&logoColor=white)](https://astro.build)
+
 **Demo:** https://astro-kepler.pages.dev
+
+![Kepler landing page](docs/screenshots/home.png)
 
 ## Features
 
@@ -18,6 +24,22 @@ offset shadows and an orbit motif.
 - 🌐 **SEO baked in** — canonical URLs, Open Graph, Twitter cards, `sitemap.xml`, RSS
 - ⚡ **Zero-JS by default** — interactions are a few lines of vanilla `<script>`; no UI framework
 - 🎯 **One design system** — two hues, two typefaces, and a set of tokens shared across every preset
+
+## Presets
+
+Three presets, one design system — same tokens, typefaces, and components throughout.
+
+| Blog | Portfolio |
+| ---- | --------- |
+| [![Blog list](docs/screenshots/blog.png)](https://astro-kepler.pages.dev/blog/) | [![Portfolio grid](docs/screenshots/work.png)](https://astro-kepler.pages.dev/work/) |
+| Content Collections, tags, pagination, reading time, RSS | Filterable project grid with per-project case studies |
+
+| Article | Case study |
+| ------- | ---------- |
+| [![Blog post](docs/screenshots/blog-post.png)](https://astro-kepler.pages.dev/blog/designing-with-navy-and-orange/) | [![Case study](docs/screenshots/case-study.png)](https://astro-kepler.pages.dev/work/meridian-store/) |
+| MDX, Shiki highlighting, prev/next navigation | Meta block, tech tags, long-form case-study body |
+
+Full-text search (`/search`) works across posts and case studies via [Pagefind](https://pagefind.app).
 
 ## Tech stack
 
