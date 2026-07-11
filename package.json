@@ -4,6 +4,30 @@
   "version": "0.1.0",
   "description": "Kepler — a versatile Astro 7 theme for blogs, portfolios, and landing pages",
   "license": "MIT",
+  "author": "kpab (https://github.com/kpab)",
+  "homepage": "https://astro-kepler.pages.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpab/astro-kepler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kpab/astro-kepler/issues"
+  },
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "astro-component",
+    "withastro",
+    "theme",
+    "blog",
+    "portfolio",
+    "landing-page",
+    "tailwindcss",
+    "typescript",
+    "mdx",
+    "starter",
+    "template"
+  ],
   "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": ">=22.12.0"
