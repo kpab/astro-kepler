@@ -54,12 +54,21 @@ Full-text search (`/search`) works across posts and case studies via [Pagefind](
 
 ## Quick start
 
+Click **[Use this template](https://github.com/kpab/astro-kepler/generate)** to create
+your own repository from Kepler, then clone it and run:
+
 ```sh
 pnpm install
 pnpm dev        # dev server at http://localhost:4321
 pnpm build      # production build to dist/ (also generates the Pagefind index)
 pnpm preview    # preview the production build (search works here, not in dev)
 ```
+
+Then make it yours:
+
+1. Edit **`src/site.config.ts`** — site name, production URL, description, OGP, social handles.
+2. Replace the demo content in **`src/content/blog/`** and **`src/content/work/`** with your own.
+3. Deploy the `dist/` output to any static host (the demo runs on Cloudflare Pages).
 
 > **Note:** search relies on a static index generated at build time, so it only works
 > in `pnpm preview` and in production — not in `pnpm dev`.
