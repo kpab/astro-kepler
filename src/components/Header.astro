@@ -1,11 +1,13 @@
 ---
 import Logo from './Logo.astro';
 
+// LP のセクションへは絶対パス付きアンカーにして、ブログ等の下層ページからも辿れるようにする
 const links = [
-	{ href: '#features', label: 'Features' },
-	{ href: '#showcase', label: 'Showcase' },
-	{ href: '#pricing', label: 'Pricing' },
-	{ href: '#faq', label: 'FAQ' },
+	{ href: '/#features', label: 'Features' },
+	{ href: '/#showcase', label: 'Showcase' },
+	{ href: '/#pricing', label: 'Pricing' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/#faq', label: 'FAQ' },
 ];
 ---
 
@@ -21,7 +23,7 @@ const links = [
 		<div class="ml-auto flex items-center gap-3.5">
 			<a href="#" class="text-[15px] font-semibold text-cloud hover:text-orange">Sign in</a>
 			<a
-				href="#pricing"
+				href="/#pricing"
 				class="rounded-full bg-orange px-5 py-2.5 text-[15px] font-bold text-cloud shadow-[3px_3px_0_var(--color-cloud)] transition-[transform,box-shadow] hover:-translate-x-px hover:-translate-y-px hover:shadow-[4px_4px_0_var(--color-cloud)]"
 				>Get Kepler</a
 			>

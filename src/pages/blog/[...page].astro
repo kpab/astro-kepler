@@ -1,0 +1,53 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageBanner from '../../components/blog/PageBanner.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import Pagination from '../../components/blog/Pagination.astro';
+import TagPill from '../../components/blog/TagPill.astro';
+import { getPublishedPosts, collectTags, type Post } from '../../lib/posts';
+import { site } from '../../site.config';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = await getPublishedPosts();
+	return paginate(posts, { pageSize: site.postsPerPage });
+}) satisfies GetStaticPaths;
+
+interface Props {
+	page: Page<Post>;
+}
+
+const { page } = Astro.props;
+const allPosts = await getPublishedPosts();
+const tags = collectTags(allPosts);
+---
+
+<BaseLayout
+	title="Blog"
+	description="Notes on building with Astro, design, and shipping fast static sites."
+>
+	<PageBanner
+		eyebrow="Blog"
+		title="Ideas, notes & release notes"
+		sub="Writing about Astro, design systems, and the craft of fast websites."
+	/>
+
+	<div class="mx-auto max-w-[1200px] px-8 py-12">
+		{
+			tags.length > 0 && (
+				<div class="mb-10 flex flex-wrap items-center gap-2">
+					<span class="mr-1 text-sm font-bold text-ink/50">Browse:</span>
+					{tags.map((tag) => (
+						<TagPill name={tag.name} count={tag.count} />
+					))}
+				</div>
+			)
+		}
+
+		<div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+			{page.data.map((post, i) => <PostCard post={post} index={i} />)}
+		</div>
+
+		<Pagination currentPage={page.currentPage} lastPage={page.lastPage} base="/blog" />
+	</div>
+</BaseLayout>

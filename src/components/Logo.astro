@@ -4,7 +4,7 @@ interface Props {
 	size?: 'md' | 'sm';
 	href?: string;
 }
-const { size = 'md', href = '#top' } = Astro.props;
+const { size = 'md', href = '/' } = Astro.props;
 const mark = size === 'md' ? 'size-[30px] rounded-[9px]' : 'size-7 rounded-lg';
 const ring = size === 'md' ? 'w-[30px] h-3.5' : 'w-7 h-[13px]';
 const dot = size === 'md' ? 'size-2' : 'size-[7px]';

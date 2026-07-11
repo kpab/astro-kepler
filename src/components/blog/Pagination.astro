@@ -1,0 +1,56 @@
+---
+interface Props {
+	currentPage: number;
+	lastPage: number;
+	/** ページ1のパス。2ページ目以降は `${base}/2` を生成する */
+	base?: string;
+}
+
+const { currentPage, lastPage, base = '/blog' } = Astro.props;
+
+const href = (n: number) => (n === 1 ? `${base}` : `${base}/${n}`);
+const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
+
+const pill =
+	'inline-flex h-11 min-w-11 items-center justify-center rounded-full border-2 border-ink px-4 text-[15px] font-bold transition-[transform,box-shadow]';
+const idle =
+	'bg-cloud text-ink shadow-pop-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-pop';
+const current = 'bg-orange text-cloud shadow-pop-sm';
+const disabled = 'cursor-not-allowed border-ink/20 text-ink/30';
+---
+
+{
+	lastPage > 1 && (
+		<nav class="mt-14 flex flex-wrap items-center justify-center gap-2.5" aria-label="Pagination">
+			{currentPage > 1 ? (
+				<a href={href(currentPage - 1)} class:list={[pill, idle]} rel="prev">
+					← Prev
+				</a>
+			) : (
+				<span class:list={[pill, disabled]} aria-hidden="true">
+					← Prev
+				</span>
+			)}
+
+			{pages.map((n) => (
+				<a
+					href={href(n)}
+					class:list={[pill, n === currentPage ? current : idle]}
+					aria-current={n === currentPage ? 'page' : undefined}
+				>
+					{n}
+				</a>
+			))}
+
+			{currentPage < lastPage ? (
+				<a href={href(currentPage + 1)} class:list={[pill, idle]} rel="next">
+					Next →
+				</a>
+			) : (
+				<span class:list={[pill, disabled]} aria-hidden="true">
+					Next →
+				</span>
+			)}
+		</nav>
+	)
+}

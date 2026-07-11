@@ -1,0 +1,127 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TagPill from '../components/blog/TagPill.astro';
+import { readingTime, type Post } from '../lib/posts';
+import { site } from '../site.config';
+
+interface Props {
+	post: Post;
+	prev?: Post;
+	next?: Post;
+}
+
+const { post, prev, next } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, author } = post.data;
+
+const minutes = readingTime(post.body);
+const dateLabel = pubDate.toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+const updatedLabel = updatedDate?.toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	type="article"
+	article={{
+		publishedTime: pubDate,
+		modifiedTime: updatedDate,
+		author: author ?? site.author,
+		tags,
+	}}
+>
+	<article>
+		<header class="border-b-2 border-line bg-paper">
+			<div class="mx-auto max-w-[720px] px-6 pt-16 pb-10">
+				<a
+					href="/blog"
+					class="inline-flex items-center gap-1 text-sm font-bold text-orange-deep hover:text-orange"
+				>
+					← Back to blog
+				</a>
+
+				{
+					tags.length > 0 && (
+						<div class="mt-6 flex flex-wrap gap-2">
+							{tags.map((tag) => (
+								<TagPill name={tag} />
+							))}
+						</div>
+					)
+				}
+
+				<h1
+					class="mt-4 text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.08] tracking-[-0.02em] text-ink"
+				>
+					{title}
+				</h1>
+				<p class="mt-4 text-lg text-ink/70">{description}</p>
+
+				<div class="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-ink/55">
+					<span>{author ?? site.author}</span>
+					<span aria-hidden="true">·</span>
+					<time datetime={pubDate.toISOString()}>{dateLabel}</time>
+					<span aria-hidden="true">·</span>
+					<span>{minutes} min read</span>
+					{
+						updatedLabel && (
+							<>
+								<span aria-hidden="true">·</span>
+								<span>Updated {updatedLabel}</span>
+							</>
+						)
+					}
+				</div>
+			</div>
+		</header>
+
+		<div class="prose mx-auto max-w-[720px] px-6 py-12">
+			<slot />
+		</div>
+	</article>
+
+	{
+		(prev || next) && (
+			<nav
+				class="mx-auto grid max-w-[720px] gap-4 px-6 pb-20 sm:grid-cols-2"
+				aria-label="More posts"
+			>
+				{prev ? (
+					<a
+						href={`/blog/${prev.id}`}
+						class="group rounded-tile border-2 border-ink bg-cloud p-5 shadow-pop-sm transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-pop"
+					>
+						<span class="text-xs font-bold uppercase tracking-wider text-ink/45">
+							← Previous
+						</span>
+						<span class="mt-1 block font-bold leading-snug text-ink group-hover:text-navy">
+							{prev.data.title}
+						</span>
+					</a>
+				) : (
+					<span />
+				)}
+				{next && (
+					<a
+						href={`/blog/${next.id}`}
+						class="group rounded-tile border-2 border-ink bg-cloud p-5 text-right shadow-pop-sm transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-pop sm:col-start-2"
+					>
+						<span class="text-xs font-bold uppercase tracking-wider text-ink/45">
+							Next →
+						</span>
+						<span class="mt-1 block font-bold leading-snug text-ink group-hover:text-navy">
+							{next.data.title}
+						</span>
+					</a>
+				)}
+			</nav>
+		)
+	}
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import { slugify } from '../../lib/posts';
+
+interface Props {
+	name: string;
+	count?: number;
+	active?: boolean;
+	/** リンクにしない場合は false */
+	link?: boolean;
+}
+
+const { name, count, active = false, link = true } = Astro.props;
+const href = `/tags/${slugify(name)}`;
+
+const base =
+	'inline-flex items-center gap-1.5 rounded-chip border-2 px-3 py-1 text-[13px] font-bold transition-colors';
+const tone = active
+	? 'border-ink bg-orange text-cloud'
+	: 'border-ink/15 bg-orange-soft text-orange-deep hover:border-ink hover:bg-orange hover:text-cloud';
+---
+
+{
+	link ? (
+		<a href={href} class:list={[base, tone]}>
+			<span>#{name}</span>
+			{count !== undefined && <span class="opacity-70">{count}</span>}
+		</a>
+	) : (
+		<span class:list={[base, tone]}>
+			<span>#{name}</span>
+			{count !== undefined && <span class="opacity-70">{count}</span>}
+		</span>
+	)
+}

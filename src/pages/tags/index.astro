@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageBanner from '../../components/blog/PageBanner.astro';
+import TagPill from '../../components/blog/TagPill.astro';
+import { getPublishedPosts, collectTags } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const tags = collectTags(posts);
+---
+
+<BaseLayout title="Tags" description="Browse all blog topics by tag.">
+	<PageBanner
+		eyebrow="Tags"
+		title="Browse by topic"
+		sub={`${tags.length} topics across ${posts.length} posts.`}
+	/>
+
+	<div class="mx-auto max-w-[1200px] px-8 py-12">
+		<div class="flex flex-wrap gap-3">
+			{tags.map((tag) => <TagPill name={tag.name} count={tag.count} />)}
+		</div>
+	</div>
+</BaseLayout>

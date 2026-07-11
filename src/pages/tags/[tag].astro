@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageBanner from '../../components/blog/PageBanner.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import { getPublishedPosts, collectTags, slugify, type Post } from '../../lib/posts';
+
+export const getStaticPaths = (async () => {
+	const posts = await getPublishedPosts();
+	const tags = collectTags(posts);
+	return tags.map((tag) => ({
+		params: { tag: tag.slug },
+		props: {
+			tagName: tag.name,
+			posts: posts.filter((post) => post.data.tags.some((t) => slugify(t) === tag.slug)),
+		},
+	}));
+}) satisfies GetStaticPaths;
+
+interface Props {
+	tagName: string;
+	posts: Post[];
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<BaseLayout
+	title={`#${tagName}`}
+	description={`Posts tagged “${tagName}”.`}
+>
+	<PageBanner
+		eyebrow="Tag"
+		title={`#${tagName}`}
+		sub={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'} tagged “${tagName}”.`}
+	/>
+
+	<div class="mx-auto max-w-[1200px] px-8 py-12">
+		<a
+			href="/tags"
+			class="mb-8 inline-flex items-center gap-1 text-sm font-bold text-orange-deep hover:text-orange"
+		>
+			← All tags
+		</a>
+		<div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+			{posts.map((post, i) => <PostCard post={post} index={i} />)}
+		</div>
+	</div>
+</BaseLayout>

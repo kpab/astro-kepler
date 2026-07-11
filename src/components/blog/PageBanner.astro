@@ -1,0 +1,29 @@
+---
+interface Props {
+	eyebrow?: string;
+	title: string;
+	sub?: string;
+	align?: 'left' | 'center';
+}
+
+const { eyebrow, title, sub, align = 'left' } = Astro.props;
+const alignCls = align === 'center' ? 'mx-auto text-center items-center' : 'items-start';
+---
+
+<header class="border-b-2 border-line bg-paper">
+	<div class="mx-auto max-w-[1200px] px-8 pt-16 pb-10">
+		<div class:list={['flex max-w-[720px] flex-col gap-3', alignCls]}>
+			{
+				eyebrow && (
+					<span class="text-[13px] font-bold uppercase tracking-[0.12em] text-orange-deep">
+						{eyebrow}
+					</span>
+				)
+			}
+			<h1 class="text-[clamp(2.2rem,5vw,3.2rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ink">
+				{title}
+			</h1>
+			{sub && <p class="text-lg text-ink/70">{sub}</p>}
+		</div>
+	</div>
+</header>
