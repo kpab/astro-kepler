@@ -1,0 +1,80 @@
+---
+/*
+ * SEO / OGP メタタグを一括出力する。<head> 内で使う。
+ * canonical は site.url + 現在パスから自動生成する。
+ */
+import { site } from '../site.config';
+
+interface Props {
+	/** ページ固有タイトル。未指定ならサイトのフルタイトルを使う */
+	title?: string;
+	description?: string;
+	/** OGP 画像（絶対 URL もしくはサイトルート基準の絶対パス） */
+	image?: string;
+	/** og:type。記事なら 'article' */
+	type?: 'website' | 'article';
+	/** noindex を付けたいページ用 */
+	noindex?: boolean;
+	/** 記事メタ（type='article' のとき） */
+	article?: {
+		publishedTime?: Date;
+		modifiedTime?: Date;
+		author?: string;
+		tags?: string[];
+	};
+}
+
+const {
+	title,
+	description = site.description,
+	image = site.defaultOgImage,
+	type = 'website',
+	noindex = false,
+	article,
+} = Astro.props;
+
+// タイトル: 指定があればテンプレートを適用、なければサイトのフルタイトル
+const fullTitle = title ? site.titleTemplate.replace('%s', title) : site.title;
+
+// canonical / OGP 用の絶対 URL。Astro.site が未設定でも壊れないようフォールバック
+const baseUrl = Astro.site ?? new URL(site.url);
+const canonical = new URL(Astro.url.pathname, baseUrl).href.replace(/(?<!:)\/{2,}/g, '/');
+const ogImage = image ? new URL(image, baseUrl).href : undefined;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{/* Open Graph */}
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={site.locale} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+{/* article メタ */}
+{
+	type === 'article' && article && (
+		<>
+			{article.publishedTime && (
+				<meta property="article:published_time" content={article.publishedTime.toISOString()} />
+			)}
+			{article.modifiedTime && (
+				<meta property="article:modified_time" content={article.modifiedTime.toISOString()} />
+			)}
+			{article.author && <meta property="article:author" content={article.author} />}
+			{article.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+		</>
+	)
+}
+
+{/* Twitter */}
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+{site.social.twitter && <meta name="twitter:site" content={site.social.twitter} />}

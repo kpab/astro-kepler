@@ -2,32 +2,47 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Seo from '../components/Seo.astro';
+import { site } from '../site.config';
 
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	noindex?: boolean;
+	article?: {
+		publishedTime?: Date;
+		modifiedTime?: Date;
+		author?: string;
+		tags?: string[];
+	};
 }
-const {
-	title = 'Kepler — The versatile Astro theme',
-	description = 'The versatile Astro starter for blogs, portfolios, and landing pages.',
-} = Astro.props;
+
+const seo = Astro.props;
 ---
 
-<html lang="en">
+<html lang={site.locale}>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title={`${site.name} — Blog`}
+			href="/rss.xml"
+		/>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
-		<title>{title}</title>
+		<Seo {...seo} />
 	</head>
 	<body>
 		<div class="max-w-full overflow-x-clip">
