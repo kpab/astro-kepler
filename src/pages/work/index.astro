@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageBanner from '../../components/blog/PageBanner.astro';
+import ProjectCard from '../../components/work/ProjectCard.astro';
+import { getPublishedProjects, collectCategories } from '../../lib/projects';
+
+const projects = await getPublishedProjects();
+const categories = collectCategories(projects);
+---
+
+<BaseLayout
+	title="Work"
+	description="Selected projects — web apps, brand systems, and fast websites."
+>
+	<PageBanner
+		eyebrow="Work"
+		title="Selected projects"
+		sub="A few things I've designed and built, from product UIs to brand systems."
+	/>
+
+	<div class="mx-auto max-w-[1200px] px-8 py-12">
+		{
+			categories.length > 1 && (
+				<div class="mb-10 flex flex-wrap gap-2.5" role="group" aria-label="Filter projects">
+					<button
+						type="button"
+						class="filter-btn is-active rounded-full border-2 border-ink px-4 py-1.5 text-sm font-bold transition-colors"
+						data-filter="all"
+					>
+						All
+					</button>
+					{categories.map((cat) => (
+						<button
+							type="button"
+							class="filter-btn rounded-full border-2 border-ink px-4 py-1.5 text-sm font-bold transition-colors"
+							data-filter={cat.slug}
+						>
+							{cat.name}
+						</button>
+					))}
+				</div>
+			)
+		}
+
+		<div id="project-grid" class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+		</div>
+
+		<p id="no-results" class="hidden py-16 text-center text-ink/50">
+			No projects in this category yet.
+		</p>
+	</div>
+</BaseLayout>
+
+<style>
+	.filter-btn {
+		background: var(--color-cloud);
+		color: var(--color-ink);
+	}
+	.filter-btn:hover {
+		background: var(--color-orange-soft);
+	}
+	.filter-btn.is-active {
+		background: var(--color-orange);
+		color: var(--color-cloud);
+	}
+</style>
+
+<script>
+	// カテゴリでプロジェクトを絞り込む。data-category と data-filter を突き合わせる
+	const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+	const cards = document.querySelectorAll<HTMLElement>('#project-grid [data-category]');
+	const noResults = document.getElementById('no-results');
+
+	function applyFilter(filter: string) {
+		let visible = 0;
+		cards.forEach((card) => {
+			const match = filter === 'all' || card.dataset.category === filter;
+			card.classList.toggle('hidden', !match);
+			if (match) visible++;
+		});
+		noResults?.classList.toggle('hidden', visible > 0);
+	}
+
+	buttons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			buttons.forEach((b) => b.classList.remove('is-active'));
+			btn.classList.add('is-active');
+			applyFilter(btn.dataset.filter ?? 'all');
+		});
+	});
+</script>

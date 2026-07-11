@@ -1,0 +1,126 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Project } from '../lib/projects';
+
+interface Props {
+	project: Project;
+	next?: Project;
+}
+
+const { project, next } = Astro.props;
+const { title, description, category, tech, year, role, client, url, repo } = project.data;
+
+const facts = [
+	role && { label: 'Role', value: role },
+	client && { label: 'Client', value: client },
+	{ label: 'Year', value: String(year) },
+	{ label: 'Category', value: category },
+].filter(Boolean) as { label: string; value: string }[];
+---
+
+<BaseLayout title={title} description={description} type="article">
+	<article>
+		<header class="border-b-2 border-line bg-paper">
+			<div class="mx-auto max-w-[860px] px-6 pt-16 pb-10">
+				<a
+					href="/work"
+					class="inline-flex items-center gap-1 text-sm font-bold text-orange-deep hover:text-orange"
+				>
+					← Back to work
+				</a>
+
+				<div class="mt-6 flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.1em] text-orange-deep">
+					<span>{category}</span>
+					<span class="text-ink/30" aria-hidden="true">·</span>
+					<span class="text-ink/45">{year}</span>
+				</div>
+
+				<h1 class="mt-3 text-[clamp(2rem,5vw,3.1rem)] font-bold leading-[1.06] tracking-[-0.02em] text-ink">
+					{title}
+				</h1>
+				<p class="mt-4 max-w-[640px] text-lg text-ink/70">{description}</p>
+
+				{
+					(url || repo) && (
+						<div class="mt-6 flex flex-wrap gap-3">
+							{url && (
+								<a
+									href={url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1.5 rounded-full bg-orange px-5 py-2.5 text-sm font-bold text-cloud shadow-pop-sm transition-[transform,box-shadow] hover:-translate-x-px hover:-translate-y-px hover:shadow-pop"
+								>
+									Visit site →
+								</a>
+							)}
+							{repo && (
+								<a
+									href={repo}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-orange-soft"
+								>
+									Repository
+								</a>
+							)}
+						</div>
+					)
+				}
+			</div>
+		</header>
+
+		<div class="mx-auto max-w-[860px] px-6 py-12">
+			<dl class="mb-10 grid gap-6 rounded-card border-2 border-ink bg-cloud p-6 shadow-pop-sm sm:grid-cols-4">
+				{
+					facts.map((fact) => (
+						<div>
+							<dt class="text-xs font-bold uppercase tracking-wider text-ink/45">
+								{fact.label}
+							</dt>
+							<dd class="mt-1 font-semibold text-ink">{fact.value}</dd>
+						</div>
+					))
+				}
+			</dl>
+
+			{
+				tech.length > 0 && (
+					<div class="mb-10 flex flex-wrap gap-2">
+						{tech.map((t) => (
+							<span class="rounded-md bg-orange-soft px-2.5 py-1 text-sm font-semibold text-orange-deep">
+								{t}
+							</span>
+						))}
+					</div>
+				)
+			}
+
+			<div class="prose max-w-none">
+				<slot />
+			</div>
+		</div>
+	</article>
+
+	{
+		next && (
+			<nav class="mx-auto max-w-[860px] px-6 pb-20" aria-label="Next project">
+				<a
+					href={`/work/${next.id}`}
+					class="group flex items-center justify-between gap-4 rounded-card border-2 border-ink bg-cloud p-6 shadow-pop-sm transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-pop"
+				>
+					<span>
+						<span class="text-xs font-bold uppercase tracking-wider text-ink/45">
+							Next project
+						</span>
+						<span class="mt-1 block text-xl font-bold text-ink group-hover:text-navy">
+							{next.data.title}
+						</span>
+					</span>
+					<span class="text-2xl text-orange-deep transition-transform group-hover:translate-x-1" aria-hidden="true">
+						→
+					</span>
+				</a>
+			</nav>
+		)
+	}
+</BaseLayout>
