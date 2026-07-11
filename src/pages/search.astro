@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageBanner from '../components/blog/PageBanner.astro';
+
+// Pagefind の UI アセットは `pnpm build`（astro build && pagefind）後に dist/pagefind/ へ生成される。
+// dev では存在しないため、検索は build/preview・本番で動作する。
+---
+
+<BaseLayout title="Search" description="Search posts and projects across the site.">
+	<PageBanner eyebrow="Search" title="Find anything" sub="Search across blog posts and project case studies." />
+
+	<div class="mx-auto max-w-[720px] px-6 py-12">
+		<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+		<div id="search" class="kepler-search"></div>
+		<noscript>
+			<p class="text-ink/60">Search requires JavaScript.</p>
+		</noscript>
+	</div>
+</BaseLayout>
+
+<style is:global>
+	/* Pagefind UI をデザイントークンに合わせる */
+	.kepler-search {
+		--pagefind-ui-primary: var(--color-navy);
+		--pagefind-ui-text: var(--color-ink);
+		--pagefind-ui-background: var(--color-cloud);
+		--pagefind-ui-border: rgb(15 30 66 / 0.15);
+		--pagefind-ui-tag: var(--color-orange-soft);
+		--pagefind-ui-border-width: 2px;
+		--pagefind-ui-border-radius: 14px;
+		--pagefind-ui-font: var(--font-body);
+	}
+	.kepler-search .pagefind-ui__search-input {
+		font-weight: 600;
+		box-shadow: var(--shadow-pop-sm);
+	}
+	.kepler-search .pagefind-ui__result {
+		border-top: 2px solid var(--color-line);
+	}
+	.kepler-search .pagefind-ui__result-title a {
+		font-family: var(--font-display);
+		color: var(--color-navy);
+	}
+</style>
+
+<!-- Pagefind UI は build 成果物（dist/pagefind/）にのみ存在するため is:inline で実行時読み込みする -->
+<script src="/pagefind/pagefind-ui.js" is:inline></script>
+<script is:inline>
+	window.addEventListener('DOMContentLoaded', () => {
+		if (window.PagefindUI) {
+			new window.PagefindUI({ element: '#search', showSubResults: true, showImages: false });
+		}
+	});
+</script>
