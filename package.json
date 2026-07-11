@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "Kepler — a versatile Astro 7 theme for blogs, portfolios, and landing pages",
   "license": "MIT",
+  "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": ">=22.12.0"
   },
