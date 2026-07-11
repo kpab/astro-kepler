@@ -1,0 +1,54 @@
+---
+title: 'Content Collections, Explained'
+description: 'A practical tour of Astro content collections: typed frontmatter, the glob loader, and rendering Markdown and MDX.'
+pubDate: 2026-06-25
+tags: ['Astro', 'Tutorial', 'Content']
+author: 'Kepler Team'
+---
+
+Astro content collections turn a folder of Markdown into a typed, queryable data
+source. Kepler's blog is built entirely on top of them. Here is the shape of it.
+
+## Define the collection
+
+A collection pairs a **loader** (where the files live) with a **schema** (what
+their frontmatter must contain):
+
+```ts
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const blog = defineCollection({
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { blog };
+```
+
+Because the schema is Zod, a typo in your frontmatter fails the build instead of
+shipping a broken page.
+
+## Query and render
+
+Fetch entries with `getCollection`, then render one with `render`:
+
+```astro
+---
+import { getCollection, render } from 'astro:content';
+const posts = await getCollection('blog');
+const { Content } = await render(posts[0]);
+---
+<Content />
+```
+
+## Why MDX?
+
+This very post is an `.mdx` file. MDX lets you drop components into prose when a
+plain paragraph will not do — callouts, charts, interactive demos. For everyday
+writing, plain Markdown is lighter and just as well supported. Use whichever fits
+the page.
