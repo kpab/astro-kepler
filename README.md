@@ -49,7 +49,7 @@ Full-text search (`/search`) works across posts and case studies via [Pagefind](
 
 | Area          | Choice                                    |
 | ------------- | ----------------------------------------- |
-| Framework     | Astro 7 (`7.0.x`)                         |
+| Framework     | Astro 7 (`7.x`)                           |
 | Styling       | Tailwind CSS v4 (`@theme` design tokens)  |
 | Language      | TypeScript                                |
 | Content       | Content Collections + MDX                 |
