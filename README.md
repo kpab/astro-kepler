@@ -12,6 +12,10 @@ offset shadows and an orbit motif.
 
 ![Kepler landing page](docs/screenshots/home.png)
 
+> 📇 **Building a directory or listings site?** Check out **[Almanac](https://almanac.p4ni.com)** —
+> a premium Astro + Cloudflare directory theme by the same author, with full-text search,
+> an admin panel, moderated submissions, and monetization built in.
+
 ## Features
 
 - 🚀 **Astro 7 + Tailwind CSS v4 + TypeScript**
@@ -170,6 +174,15 @@ The demo deploys to Cloudflare Pages. Any static host works — just point it at
 
 `pnpm build` runs `astro build` followed by `pagefind --site dist`, so the search index
 ships with your site automatically.
+
+## More themes by kpab
+
+- **[Almanac](https://almanac.p4ni.com)** (premium) — a directory theme on Astro + Cloudflare
+  Workers + D1: bm25 full-text search, admin panel, moderated submissions, and featured-listing
+  monetization. [Get it on Gumroad →](https://kpab.gumroad.com/l/almanac)
+- [astro-haze](https://github.com/kpab/astro-haze) — glassmorphism theme for blogs, portfolios & landing pages
+- [Astro Keel](https://github.com/kpab/astro-keel) — minimal, neutral portfolio + blog theme
+- [Darkness](https://github.com/kpab/astro-darkness) — dark portfolio theme with a Three.js particle background
 
 ## License
 
