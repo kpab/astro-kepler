@@ -47,7 +47,7 @@ Astro 7 対応の OSS テーマ「Kepler」を作る。ブログ・ポートフ�
 
 | 項目 | 選定 | 理由 |
 |------|------|------|
-| フレームワーク | Astro 7（7.0.x） | 最新メジャー対応がテーマの売り。Rust コンパイラ・Vite 8 |
+| フレームワーク | Astro 7（7.x） | 最新メジャー対応がテーマの売り。Rust コンパイラ・Vite 8 |
 | スタイリング | Tailwind CSS v4 | Astro テーマの主流。利用者がカスタマイズしやすい |
 | 言語 | TypeScript | Content Collections の型付き frontmatter を活かす |
 | コンテンツ | Content Collections + MDX | Astro 標準。Astro 7 は Sätteri が既定（remark/rehype 使用時は `@astrojs/markdown-remark` 追加） |

@@ -7,7 +7,7 @@ Astro 7 対応の OSS テーマ「Kepler」。ブログ・ポートフォリオ�
 
 ## 技術スタック
 
-- Astro 7（7.0.x）+ TypeScript
+- Astro 7（7.x）+ TypeScript
 - Tailwind CSS v4
 - Content Collections + MDX（Astro 7 の既定は Sätteri。remark/rehype を使うなら `@astrojs/markdown-remark` が必要）
 - インタラクションは vanilla JS の `<script>` のみ（フレームワーク島は使わない）
