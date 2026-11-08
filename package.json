@@ -42,11 +42,11 @@
     "@astrojs/mdx": "^8.1.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.4",
-    "tailwindcss": "^4.3.3"
+    "@tailwindcss/vite": "^4.3.4",
+    "astro": "^7.4.6",
+    "tailwindcss": "^4.3.4"
   },
   "devDependencies": {
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.6.0"
   }
 }
